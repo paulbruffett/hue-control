@@ -113,16 +113,18 @@ void colorUpdate(int color, int transition, bool state) {
   if (state) {
   command = "{\"on\":true,\"hue\":"+String(color)+",\"sat\":255,\"bri\":255,\"transitiontime\":"+String(transition)+"}";
   } else {
+    //this command does double duty since I didn't want to duplicate the machinery when I added the ability to toggle the light on and off
     command = "{\"on\":false}";
   }
   if (client.connect(hue_bridge, 80)) {
     Serial.println("connected to server");
-    // Make a HTTP request:
+    // Make a HTTP request: first building the URL
     client.print("PUT ");
     client.print(api_key);
     client.print("/lights/");
     client.print(lightNum);
     client.println("/state HTTP/1.1");
+    //submit headers
     client.println("Connection: keep-alive");
     client.print("Host: ");
     client.println(hue_bridge);
