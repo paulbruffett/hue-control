@@ -9,11 +9,16 @@ char ssid[] = SECRET_SSID;
 char password[] = SECRET_PASS;
 char api_key[] = API_KEY;
 char hue_bridge[] = HUE_BRIDGE;
+
+//default light for startup
 int lightNum = 2;
 String lightName = "George";
+
+//tracks state for toggling lights off and on
 bool light_state = true;
 String print_txt = "";
 String command = "";
+
 
 int status = WL_IDLE_STATUS;
 WiFiClient client;
@@ -22,7 +27,6 @@ WiFiClient client;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  while(!Serial);
 
   while (status != WL_CONNECTED) {
     Serial.print("Attempting to connect to SSID: ");
